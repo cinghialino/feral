@@ -3,8 +3,11 @@
 scriptversion="1.0.0"
 scriptname="install.rslsync"
 #
-# launch this with 
+# install this with 
 # wget -qO ~/rslsync.install https://raw.githubusercontent.com/cinghialino/feral/master/rslsync.install && bash ~/rslsync.install
+#
+# once installed launch with 
+# bash rslsync.install
 #
 ############################
 ## Version History Starts ##
