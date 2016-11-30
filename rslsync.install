@@ -1,10 +1,7 @@
 #!/bin/bash
-# Install btsync
+# Install rslsync
 scriptversion="1.0.0"
 scriptname="install.rslsync"
-# adamaze
-#
-# wget -qO ~/install.btsync http://git.io/zHDQGA && bash ~/install.btsync
 #
 ############################
 ## Version History Starts ##
@@ -26,7 +23,7 @@ scriptname="install.rslsync"
 ###### Variable Start ######
 ############################
 #
-scripturl="https://raw.githubusercontent.com/feralhosting/feralfilehosting/master/Feral%20Wiki/Software/BitTorrent%20Sync%20btsync%20-%20basic%20setup/scripts/install.btsync"
+scripturl="https://raw.githubusercontent.com/cinghialino/feral/master/rslsync.install"
 option1="Install Resilio Sync"
 option2="Update Resilio Sync"
 option3="Uninstall Resilio Sync"
@@ -35,47 +32,6 @@ option4="Quit"
 ############################
 ####### Variable End #######
 ############################
-#
-############################
-#### Self Updater Start ####
-############################
-#
-#[[ ! -d ~/bin ]] && mkdir -p ~/bin
-#[[ ! -f ~/bin/"$scriptname" ]] && wget -qO ~/bin/"$scriptname" "$scripturl"
-#
-#wget -qO ~/.000"$scriptname" "$scripturl"
-#
-#if [[ $(sha256sum ~/.000"$scriptname" | awk '{print $1}') != $(sha256sum ~/bin/"$scriptname" | awk '{print $1}') ]]
-#then
-#    echo -e "#!/bin/bash\nwget -qO ~/bin/$scriptname $scripturl\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.111"$scriptname"
-#    bash ~/.111"$scriptname"
-#    exit
-#else
-#    if [[ -z $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') && $(ps x | fgrep "bash $HOME/bin/$scriptname" | grep -v grep | head -n 1 | awk '{print $1}') -ne "$$" ]]
-#    then
-#        echo -e "#!/bin/bash\ncd && rm -f $scriptname{.sh,}\nbash ~/bin/$scriptname\nexit" > ~/.222"$scriptname"
-#        bash ~/.222"$scriptname"
-#        exit
-#    fi
-#fi
-#cd && rm -f .{000,111,222}"$scriptname"
-#chmod -f 700 ~/bin/"$scriptname"
-#
-############################
-##### Self Updater End #####
-############################
-#
-############################
-#### Core Script Starts ####
-############################
-#
-#echo
-#echo -e "Hello $(whoami), you have the latest version of the" "\033[36m""$scriptname""\e[0m" "script. This script version is:" "\033[31m""$scriptversion""\e[0m"
-#echo
-#read -ep "The scripts have been updated, do you wish to continue [y] or exit now [q] : " -i "y" updatestatus
-#echo
-#if [[ "$updatestatus" =~ ^[Yy]$ ]]
-#then
 #
 ############################
 #### User Script Starts ####
@@ -88,8 +44,8 @@ showMenu ()
         echo "1) $option1"
         echo "2) $option2"
         echo "3) $option3"
-	echo "4) $option4"
-	echo
+		echo "4) $option4"
+		echo
 }
 
 while [ 1 ]
@@ -116,7 +72,7 @@ do
 			    ~/rslsync/rslsync --config ~/rslsync/sync.conf
 			    echo
 			    echo You may access the WebUi here: http://$(hostname -f):$(sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/rslsync/sync.conf)
-			    echo You may access BitTorrent Sync here: http://$(hostname -f):$(sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/rslsync/sync.conf) >> ~/.bash_login
+			    echo You may access Resilio Sync here: http://$(hostname -f):$(sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/rslsync/sync.conf) >> ~/.bash_login
 			    echo
 			    echo Note: You need to accept the invalid certificate to access the GUI if you use https. Otherwise use http.
 			    crontab -l > ~/rslsync/mycron
@@ -124,7 +80,7 @@ do
 			    crontab ~/rslsync/mycron
 			    rm ~/rslsync/mycron
 			    echo
-			    echo An entry has been created in your Crontab so that BitTorrent Sync will automatically start if your server reboots.
+			    echo An entry has been created in your Crontab so that Resilio Sync will automatically start if your server reboots.
 			    echo
 			else
 			    echo -e "\033[32m""The folder exists and the process may be running already.""\e[0m"
@@ -152,7 +108,7 @@ do
                             sed -i 's|//  ,"directory_root" : "/home/user/MySharedFolders/"|  ,"directory_root" : \"'"$HOME"'/\"|' ~/rslsync/sync.conf
                             sed -i 's|"/home/user/MySharedFolders/personal"|\"'"$HOME"'/rslsync/sync_test\"|' ~/rslsync/sync.conf
                             sed -i 's|/home/user/bittorrent/|'"$HOME"'/rslsync/|' ~/rslsync/sync.conf
-                            ~/rslsync/btsync --config ~/rslsync/sync.conf
+                            ~/rslsync/rslsync --config ~/rslsync/sync.conf
                             echo
                             echo You may access the WebUi here: http://$(hostname -f):$(sed -rn 's|.*"listen" : "0.0.0.0:(.*)".*|\1|p' ~/rslsync/sync.conf)
                             echo
@@ -166,7 +122,7 @@ do
 		"3")
 			killall -u $(whoami) rslsync
 			rm -rf ~/rslsync
-			echo "Resilio Sync has been stopped and the btsync directory has been removed."
+			echo "Resilio Sync has been stopped and the rslsync directory has been removed."
 			echo
 			;;
 		"4")
