@@ -6,6 +6,12 @@ scriptname="rslsync.install"
 # install this with 
 # wget -qO ~/rslsync.install https://raw.githubusercontent.com/cinghialino/feral/master/rslsync.install && bash ~/rslsync.install
 #
+# maybe the service is running already, better kill it first.
+# killall -9 -u $(whoami) rslsync
+#
+# check if it's still running with
+# top -u $(whoami)
+#
 # once installed launch with 
 # bash rslsync.install
 #
