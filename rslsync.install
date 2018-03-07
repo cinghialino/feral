@@ -9,7 +9,7 @@ scriptname="rslsync.install"
 # maybe the service is running already, better kill it first.
 # killall -9 -u $(whoami) rslsync
 #
-# check if it's still running with
+# check the services running with
 # top -u $(whoami)
 #
 # once installed launch with 
